@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Cliente {
+  id             Int      @id @default(autoincrement())
+  nombres        String
+  apellidos      String?
+  documento      String?  @unique
+  telefono       String
+  telefonoAlt    String?
+  correo         String?
+  direccion      String?
+  observaciones  String?
+  activo         Boolean  @default(true)
+  fechaCreacion  DateTime @default(now())
+  fechaActualiza DateTime @updatedAt
+
+  pedidos Pedido[]
+
+  @@index([nombres])
+  @@index([telefono])
+  @@index([apellidos])
+}
+
+model Producto {
+  id             Int      @id @default(autoincrement())
+  nombre         String
+  categoria      String?
+  descripcion    String?
+  precioBase     Int
+  activo         Boolean  @default(true)
+  fechaCreacion  DateTime @default(now())
+  fechaActualiza DateTime @updatedAt
+
+  detalles DetallePedido[]
+
+  @@index([nombre])
+  @@index([categoria])
+}
+
+model Pedido {
+  id             Int       @id @default(autoincrement())
+  numeroPedido   String    @unique
+  clienteId      Int
+  fechaPedido    DateTime  @default(now())
+  fechaEntrega   DateTime?
+  estado         String    @default("RECIBIDO")
+  formaEntrega   String?
+  total          Int       @default(0)
+  totalAbonado   Int       @default(0)
+  saldo          Int       @default(0)
+  observaciones  String?
+  fechaCreacion  DateTime  @default(now())
+  fechaActualiza DateTime  @updatedAt
+
+  cliente  Cliente         @relation(fields: [clienteId], references: [id])
+  detalles DetallePedido[]
+  pagos    Pago[]
+
+  @@index([clienteId])
+  @@index([fechaPedido])
+  @@index([fechaEntrega])
+  @@index([estado])
+}
+
+model DetallePedido {
+  id             Int      @id @default(autoincrement())
+  pedidoId       Int
+  productoId     Int?
+  nombreProducto String
+  descripcion    String?
+  cantidad       Int      @default(1)
+  precioUnitario Int
+  descuento      Int      @default(0)
+  subtotal       Int
+  fechaCreacion  DateTime @default(now())
+
+  pedido   Pedido    @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  producto Producto? @relation(fields: [productoId], references: [id])
+
+  @@index([pedidoId])
+  @@index([productoId])
+}
+
+model Pago {
+  id            Int      @id @default(autoincrement())
+  pedidoId      Int
+  fechaPago     DateTime @default(now())
+  valor         Int
+  metodo        String
+  referencia    String?
+  observaciones String?
+  fechaCreacion DateTime @default(now())
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+
+  @@index([pedidoId])
+  @@index([fechaPago])
+}

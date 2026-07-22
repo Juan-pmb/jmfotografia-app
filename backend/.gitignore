@@ -1,0 +1,18 @@
+# Dependencias
+node_modules/
+
+# Variables de entorno
+.env
+
+# Prisma generado
+/generated/prisma
+
+# Archivos compilados
+dist/
+
+# Base de datos SQLite
+dev.db
+*.db-journal
+
+# Logs
+*.log
