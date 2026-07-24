@@ -8,7 +8,6 @@ export const formularioInicial: FormularioCliente = {
   documento: "",
   telefono: "",
   correo: "",
-  direccion: "",
   observaciones: "",
 };
 

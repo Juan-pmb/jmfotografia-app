@@ -12,7 +12,6 @@ export type Cliente = {
   documento: string;
   telefono: string;
   correo: string;
-  direccion?: string;
   observaciones?: string;
   cantidadPedidos: number;
   saldoPendiente: number;
@@ -36,6 +35,5 @@ export type FormularioCliente = {
   documento: string;
   telefono: string;
   correo: string;
-  direccion: string;
   observaciones: string;
 };

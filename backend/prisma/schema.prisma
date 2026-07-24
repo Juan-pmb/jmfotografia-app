@@ -13,9 +13,7 @@ model Cliente {
   apellidos      String?
   documento      String?  @unique
   telefono       String
-  telefonoAlt    String?
   correo         String?
-  direccion      String?
   observaciones  String?
   activo         Boolean  @default(true)
   fechaCreacion  DateTime @default(now())

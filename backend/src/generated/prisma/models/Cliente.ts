@@ -40,9 +40,7 @@ export type ClienteMinAggregateOutputType = {
   apellidos: string | null
   documento: string | null
   telefono: string | null
-  telefonoAlt: string | null
   correo: string | null
-  direccion: string | null
   observaciones: string | null
   activo: boolean | null
   fechaCreacion: Date | null
@@ -55,9 +53,7 @@ export type ClienteMaxAggregateOutputType = {
   apellidos: string | null
   documento: string | null
   telefono: string | null
-  telefonoAlt: string | null
   correo: string | null
-  direccion: string | null
   observaciones: string | null
   activo: boolean | null
   fechaCreacion: Date | null
@@ -70,9 +66,7 @@ export type ClienteCountAggregateOutputType = {
   apellidos: number
   documento: number
   telefono: number
-  telefonoAlt: number
   correo: number
-  direccion: number
   observaciones: number
   activo: number
   fechaCreacion: number
@@ -95,9 +89,7 @@ export type ClienteMinAggregateInputType = {
   apellidos?: true
   documento?: true
   telefono?: true
-  telefonoAlt?: true
   correo?: true
-  direccion?: true
   observaciones?: true
   activo?: true
   fechaCreacion?: true
@@ -110,9 +102,7 @@ export type ClienteMaxAggregateInputType = {
   apellidos?: true
   documento?: true
   telefono?: true
-  telefonoAlt?: true
   correo?: true
-  direccion?: true
   observaciones?: true
   activo?: true
   fechaCreacion?: true
@@ -125,9 +115,7 @@ export type ClienteCountAggregateInputType = {
   apellidos?: true
   documento?: true
   telefono?: true
-  telefonoAlt?: true
   correo?: true
-  direccion?: true
   observaciones?: true
   activo?: true
   fechaCreacion?: true
@@ -227,9 +215,7 @@ export type ClienteGroupByOutputType = {
   apellidos: string | null
   documento: string | null
   telefono: string
-  telefonoAlt: string | null
   correo: string | null
-  direccion: string | null
   observaciones: string | null
   activo: boolean
   fechaCreacion: Date
@@ -265,9 +251,7 @@ export type ClienteWhereInput = {
   apellidos?: Prisma.StringNullableFilter<"Cliente"> | string | null
   documento?: Prisma.StringNullableFilter<"Cliente"> | string | null
   telefono?: Prisma.StringFilter<"Cliente"> | string
-  telefonoAlt?: Prisma.StringNullableFilter<"Cliente"> | string | null
   correo?: Prisma.StringNullableFilter<"Cliente"> | string | null
-  direccion?: Prisma.StringNullableFilter<"Cliente"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Cliente"> | string | null
   activo?: Prisma.BoolFilter<"Cliente"> | boolean
   fechaCreacion?: Prisma.DateTimeFilter<"Cliente"> | Date | string
@@ -281,9 +265,7 @@ export type ClienteOrderByWithRelationInput = {
   apellidos?: Prisma.SortOrderInput | Prisma.SortOrder
   documento?: Prisma.SortOrderInput | Prisma.SortOrder
   telefono?: Prisma.SortOrder
-  telefonoAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   correo?: Prisma.SortOrderInput | Prisma.SortOrder
-  direccion?: Prisma.SortOrderInput | Prisma.SortOrder
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
   fechaCreacion?: Prisma.SortOrder
@@ -300,9 +282,7 @@ export type ClienteWhereUniqueInput = Prisma.AtLeast<{
   nombres?: Prisma.StringFilter<"Cliente"> | string
   apellidos?: Prisma.StringNullableFilter<"Cliente"> | string | null
   telefono?: Prisma.StringFilter<"Cliente"> | string
-  telefonoAlt?: Prisma.StringNullableFilter<"Cliente"> | string | null
   correo?: Prisma.StringNullableFilter<"Cliente"> | string | null
-  direccion?: Prisma.StringNullableFilter<"Cliente"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Cliente"> | string | null
   activo?: Prisma.BoolFilter<"Cliente"> | boolean
   fechaCreacion?: Prisma.DateTimeFilter<"Cliente"> | Date | string
@@ -316,9 +296,7 @@ export type ClienteOrderByWithAggregationInput = {
   apellidos?: Prisma.SortOrderInput | Prisma.SortOrder
   documento?: Prisma.SortOrderInput | Prisma.SortOrder
   telefono?: Prisma.SortOrder
-  telefonoAlt?: Prisma.SortOrderInput | Prisma.SortOrder
   correo?: Prisma.SortOrderInput | Prisma.SortOrder
-  direccion?: Prisma.SortOrderInput | Prisma.SortOrder
   observaciones?: Prisma.SortOrderInput | Prisma.SortOrder
   activo?: Prisma.SortOrder
   fechaCreacion?: Prisma.SortOrder
@@ -339,9 +317,7 @@ export type ClienteScalarWhereWithAggregatesInput = {
   apellidos?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
   documento?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
   telefono?: Prisma.StringWithAggregatesFilter<"Cliente"> | string
-  telefonoAlt?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
   correo?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
-  direccion?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
   observaciones?: Prisma.StringNullableWithAggregatesFilter<"Cliente"> | string | null
   activo?: Prisma.BoolWithAggregatesFilter<"Cliente"> | boolean
   fechaCreacion?: Prisma.DateTimeWithAggregatesFilter<"Cliente"> | Date | string
@@ -353,9 +329,7 @@ export type ClienteCreateInput = {
   apellidos?: string | null
   documento?: string | null
   telefono: string
-  telefonoAlt?: string | null
   correo?: string | null
-  direccion?: string | null
   observaciones?: string | null
   activo?: boolean
   fechaCreacion?: Date | string
@@ -369,9 +343,7 @@ export type ClienteUncheckedCreateInput = {
   apellidos?: string | null
   documento?: string | null
   telefono: string
-  telefonoAlt?: string | null
   correo?: string | null
-  direccion?: string | null
   observaciones?: string | null
   activo?: boolean
   fechaCreacion?: Date | string
@@ -384,9 +356,7 @@ export type ClienteUpdateInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -400,9 +370,7 @@ export type ClienteUncheckedUpdateInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,9 +384,7 @@ export type ClienteCreateManyInput = {
   apellidos?: string | null
   documento?: string | null
   telefono: string
-  telefonoAlt?: string | null
   correo?: string | null
-  direccion?: string | null
   observaciones?: string | null
   activo?: boolean
   fechaCreacion?: Date | string
@@ -430,9 +396,7 @@ export type ClienteUpdateManyMutationInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -445,9 +409,7 @@ export type ClienteUncheckedUpdateManyInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -460,9 +422,7 @@ export type ClienteCountOrderByAggregateInput = {
   apellidos?: Prisma.SortOrder
   documento?: Prisma.SortOrder
   telefono?: Prisma.SortOrder
-  telefonoAlt?: Prisma.SortOrder
   correo?: Prisma.SortOrder
-  direccion?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   fechaCreacion?: Prisma.SortOrder
@@ -479,9 +439,7 @@ export type ClienteMaxOrderByAggregateInput = {
   apellidos?: Prisma.SortOrder
   documento?: Prisma.SortOrder
   telefono?: Prisma.SortOrder
-  telefonoAlt?: Prisma.SortOrder
   correo?: Prisma.SortOrder
-  direccion?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   fechaCreacion?: Prisma.SortOrder
@@ -494,9 +452,7 @@ export type ClienteMinOrderByAggregateInput = {
   apellidos?: Prisma.SortOrder
   documento?: Prisma.SortOrder
   telefono?: Prisma.SortOrder
-  telefonoAlt?: Prisma.SortOrder
   correo?: Prisma.SortOrder
-  direccion?: Prisma.SortOrder
   observaciones?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   fechaCreacion?: Prisma.SortOrder
@@ -555,9 +511,7 @@ export type ClienteCreateWithoutPedidosInput = {
   apellidos?: string | null
   documento?: string | null
   telefono: string
-  telefonoAlt?: string | null
   correo?: string | null
-  direccion?: string | null
   observaciones?: string | null
   activo?: boolean
   fechaCreacion?: Date | string
@@ -570,9 +524,7 @@ export type ClienteUncheckedCreateWithoutPedidosInput = {
   apellidos?: string | null
   documento?: string | null
   telefono: string
-  telefonoAlt?: string | null
   correo?: string | null
-  direccion?: string | null
   observaciones?: string | null
   activo?: boolean
   fechaCreacion?: Date | string
@@ -600,9 +552,7 @@ export type ClienteUpdateWithoutPedidosInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -615,9 +565,7 @@ export type ClienteUncheckedUpdateWithoutPedidosInput = {
   apellidos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   documento?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.StringFieldUpdateOperationsInput | string
-  telefonoAlt?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  direccion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   observaciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   fechaCreacion?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -661,9 +609,7 @@ export type ClienteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   apellidos?: boolean
   documento?: boolean
   telefono?: boolean
-  telefonoAlt?: boolean
   correo?: boolean
-  direccion?: boolean
   observaciones?: boolean
   activo?: boolean
   fechaCreacion?: boolean
@@ -678,9 +624,7 @@ export type ClienteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   apellidos?: boolean
   documento?: boolean
   telefono?: boolean
-  telefonoAlt?: boolean
   correo?: boolean
-  direccion?: boolean
   observaciones?: boolean
   activo?: boolean
   fechaCreacion?: boolean
@@ -693,9 +637,7 @@ export type ClienteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   apellidos?: boolean
   documento?: boolean
   telefono?: boolean
-  telefonoAlt?: boolean
   correo?: boolean
-  direccion?: boolean
   observaciones?: boolean
   activo?: boolean
   fechaCreacion?: boolean
@@ -708,16 +650,14 @@ export type ClienteSelectScalar = {
   apellidos?: boolean
   documento?: boolean
   telefono?: boolean
-  telefonoAlt?: boolean
   correo?: boolean
-  direccion?: boolean
   observaciones?: boolean
   activo?: boolean
   fechaCreacion?: boolean
   fechaActualiza?: boolean
 }
 
-export type ClienteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombres" | "apellidos" | "documento" | "telefono" | "telefonoAlt" | "correo" | "direccion" | "observaciones" | "activo" | "fechaCreacion" | "fechaActualiza", ExtArgs["result"]["cliente"]>
+export type ClienteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombres" | "apellidos" | "documento" | "telefono" | "correo" | "observaciones" | "activo" | "fechaCreacion" | "fechaActualiza", ExtArgs["result"]["cliente"]>
 export type ClienteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   pedidos?: boolean | Prisma.Cliente$pedidosArgs<ExtArgs>
   _count?: boolean | Prisma.ClienteCountOutputTypeDefaultArgs<ExtArgs>
@@ -736,9 +676,7 @@ export type $ClientePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     apellidos: string | null
     documento: string | null
     telefono: string
-    telefonoAlt: string | null
     correo: string | null
-    direccion: string | null
     observaciones: string | null
     activo: boolean
     fechaCreacion: Date
@@ -1172,9 +1110,7 @@ export interface ClienteFieldRefs {
   readonly apellidos: Prisma.FieldRef<"Cliente", 'String'>
   readonly documento: Prisma.FieldRef<"Cliente", 'String'>
   readonly telefono: Prisma.FieldRef<"Cliente", 'String'>
-  readonly telefonoAlt: Prisma.FieldRef<"Cliente", 'String'>
   readonly correo: Prisma.FieldRef<"Cliente", 'String'>
-  readonly direccion: Prisma.FieldRef<"Cliente", 'String'>
   readonly observaciones: Prisma.FieldRef<"Cliente", 'String'>
   readonly activo: Prisma.FieldRef<"Cliente", 'Boolean'>
   readonly fechaCreacion: Prisma.FieldRef<"Cliente", 'DateTime'>

@@ -6,6 +6,7 @@ type ClienteFichaProps = {
   formatearDinero: (valor: number) => string;
   onCerrar: () => void;
   onVerHistorial: () => void;
+  onEditar: () => void;
 };
 
 function crearClaseEstado(estado: string) {
@@ -22,6 +23,7 @@ function ClienteFicha({
   formatearDinero,
   onCerrar,
   onVerHistorial,
+  onEditar,
 }: ClienteFichaProps) {
   const ultimosPedidos = pedidos.slice(0, 3);
 
@@ -64,7 +66,7 @@ function ClienteFicha({
         <p>{cliente.telefono}</p>
 
         <div className="cliente-ficha-acciones">
-          <button type="button" className="cliente-accion-secundaria">
+          <button type="button" className="cliente-accion-secundaria" onClick={onEditar}>
             Editar cliente
           </button>
 

@@ -8,9 +8,7 @@ type ClienteApi = {
   apellidos: string | null;
   documento: string | null;
   telefono: string;
-  telefonoAlt: string | null;
   correo: string | null;
-  direccion: string | null;
   observaciones: string | null;
   activo: boolean;
   fechaCreacion: string;
@@ -25,7 +23,6 @@ function convertirCliente(cliente: ClienteApi): Cliente {
     documento: cliente.documento ?? "",
     telefono: cliente.telefono,
     correo: cliente.correo ?? "",
-    direccion: cliente.direccion ?? "",
     observaciones: cliente.observaciones ?? "",
     cantidadPedidos: 0,
     saldoPendiente: 0,
@@ -33,6 +30,21 @@ function convertirCliente(cliente: ClienteApi): Cliente {
     activo: cliente.activo,
   };
 }
+
+export async function consultarClientePorId(
+  id: number,
+):
+  Promise<Cliente> {
+  const respuesta = await fetch(`${API_URL}/${id}`);
+  if (!respuesta.ok) {
+    throw new Error("No fue posible consultar el cliente.")
+  }
+  const datos = (await respuesta.json()) as ClienteApi;
+
+  return convertirCliente(datos)
+}
+
+
 
 export async function consultarClientes(): Promise<Cliente[]> {
   const respuesta = await fetch(API_URL);
@@ -60,7 +72,6 @@ export async function registrarCliente(
       documento: formulario.documento || null,
       telefono: formulario.telefono,
       correo: formulario.correo || null,
-      direccion: formulario.direccion || null,
       observaciones: formulario.observaciones || null,
     }),
   });
@@ -74,6 +85,41 @@ export async function registrarCliente(
       "mensaje" in datos && datos.mensaje
         ? datos.mensaje
         : "No fue posible registrar el cliente.",
+    );
+  }
+
+  return convertirCliente(datos as ClienteApi);
+}
+
+//actualizar cliente editado 
+export async function actualizarCliente(
+  id: number,
+  formulario: FormularioCliente,
+): Promise<Cliente> {
+  const respuesta = await fetch(`${API_URL}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nombres: formulario.nombres,
+      apellidos: formulario.apellidos || null,
+      documento: formulario.documento || null,
+      telefono: formulario.telefono,
+      correo: formulario.correo || null,
+      observaciones: formulario.observaciones || null,
+    }),
+  });
+
+  const datos = (await respuesta.json()) as
+    | ClienteApi
+    | { mensaje?: string };
+
+  if (!respuesta.ok) {
+    throw new Error(
+      "mensaje" in datos && datos.mensaje
+        ? datos.mensaje
+        : "No fue posible actualizar el cliente.",
     );
   }
 

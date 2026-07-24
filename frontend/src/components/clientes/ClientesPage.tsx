@@ -9,7 +9,9 @@ import ClienteHistorial from "./ClienteHistorial";
 import { formularioInicial } from "./data/datos";
 import {
   consultarClientes,
+  consultarClientePorId,
   registrarCliente,
+  actualizarCliente,
 } from "./services/clientes.service";
 import type {
   Cliente,
@@ -35,6 +37,9 @@ function ClientesPage() {
   const [busqueda, setBusqueda] = useState("");
 
   const [clienteSeleccionado, setClienteSeleccionado] =
+    useState<Cliente | null>(null);
+
+  const [clienteEditando, setClienteEditando] =
     useState<Cliente | null>(null);
 
   const [mostrarHistorialCompleto, setMostrarHistorialCompleto] =
@@ -102,7 +107,7 @@ function ClientesPage() {
     });
   }, [busqueda, clientes]);
 
- const pedidosClienteSeleccionado: PedidoCliente[] = [];
+  const pedidosClienteSeleccionado: PedidoCliente[] = [];
 
   function actualizarCampo(
     campo: keyof FormularioCliente,
@@ -119,6 +124,7 @@ function ClientesPage() {
   function cerrarFormulario() {
     setModalAbierto(false);
     setFormulario(formularioInicial);
+    setClienteEditando(null);
     setError("");
   }
 
@@ -139,7 +145,8 @@ function ClientesPage() {
 
     const telefonoExiste = clientes.some(
       (cliente) =>
-        cliente.telefono === formulario.telefono.trim(),
+        cliente.telefono === formulario.telefono.trim() &&
+        cliente.id !== clienteEditando?.id,
     );
 
     if (telefonoExiste) {
@@ -151,7 +158,8 @@ function ClientesPage() {
       formulario.documento.trim() !== "" &&
       clientes.some(
         (cliente) =>
-          cliente.documento === formulario.documento.trim(),
+          cliente.documento === formulario.documento.trim() &&
+          cliente.id !== clienteEditando?.id,
       );
 
     if (documentoExiste) {
@@ -163,13 +171,33 @@ function ClientesPage() {
       setGuardando(true);
       setError("");
 
-      const clienteRegistrado =
-        await registrarCliente(formulario);
+      if (clienteEditando) {
 
-      setClientes((anteriores) => [
-        clienteRegistrado,
-        ...anteriores,
-      ]);
+        const clienteActualizado =
+          await actualizarCliente(
+            clienteEditando.id,
+            formulario,
+          );
+
+        setClientes((anteriores) =>
+          anteriores.map((cliente) =>
+            cliente.id === clienteActualizado.id
+              ? clienteActualizado
+              : cliente,
+          ),
+        );
+
+      } else {
+
+        const clienteRegistrado =
+          await registrarCliente(formulario);
+
+        setClientes((anteriores) => [
+          clienteRegistrado,
+          ...anteriores,
+        ]);
+
+      }
 
       cerrarFormulario();
     } catch (error) {
@@ -317,8 +345,9 @@ function ClientesPage() {
 
                           <div>
                             <strong>
-                              {cliente.nombres}{" "}
-                              {cliente.apellidos}
+                              {[cliente.nombres, cliente.apellidos]
+                                .filter(Boolean)
+                                .join(" ")}
                             </strong>
 
                             <small>
@@ -358,11 +387,17 @@ function ClientesPage() {
                         <button
                           type="button"
                           className="clientes-boton-ver"
-                          onClick={() => {
-                            setClienteSeleccionado(cliente);
-                            setMostrarHistorialCompleto(
-                              false,
-                            );
+                          onClick={async () => {
+                            try {
+                              const clienteCompleto =
+                                await consultarClientePorId(cliente.id);
+
+                              setClienteSeleccionado(clienteCompleto);
+                              setMostrarHistorialCompleto(false);
+                            } catch (error) {
+                              console.error(error);
+                              alert("No fue posible cargar la información del cliente.");
+                            }
                           }}
                         >
                           Ver ficha
@@ -401,7 +436,11 @@ function ClientesPage() {
           >
             <div className="clientes-modal-encabezado">
               <div>
-                <h2>Registrar nuevo cliente</h2>
+                <h2>
+                  {clienteEditando
+                    ? "Editar cliente"
+                    : "Nuevo cliente"}
+                </h2>
                 <p>
                   Nombre y celular son obligatorios.
                 </p>
@@ -497,18 +536,7 @@ function ClientesPage() {
                   />
                 </label>
 
-                <label>
-                  Dirección
-                  <input
-                    value={formulario.direccion}
-                    onChange={(evento) =>
-                      actualizarCampo(
-                        "direccion",
-                        evento.target.value,
-                      )
-                    }
-                  />
-                </label>
+
               </div>
 
               <label className="clientes-campo-completo">
@@ -548,7 +576,9 @@ function ClientesPage() {
                 >
                   {guardando
                     ? "Guardando..."
-                    : "Guardar cliente"}
+                    : clienteEditando
+                      ? "Guardar cambios"
+                      : "Registrar cliente"}
                 </button>
               </div>
             </form>
@@ -567,6 +597,24 @@ function ClientesPage() {
           onVerHistorial={() =>
             setMostrarHistorialCompleto(true)
           }
+
+          //EDITAR ONCLICK DESESTRUCTURACION:
+          onEditar={() => {
+            setClienteEditando(clienteSeleccionado);
+
+            setFormulario({
+              nombres: clienteSeleccionado.nombres,
+              apellidos: clienteSeleccionado.apellidos ?? "",
+              telefono: clienteSeleccionado.telefono,
+              documento: clienteSeleccionado.documento ?? "",
+              correo: clienteSeleccionado.correo ?? "",
+              observaciones: clienteSeleccionado.observaciones ?? "",
+            });
+
+            setClienteSeleccionado(null);
+            setModalAbierto(true);
+          }}
+
         />
       )}
     </section>
