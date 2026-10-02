@@ -12,7 +12,7 @@ model Cliente {
   nombres        String
   apellidos      String?
   documento      String?  @unique
-  telefono       String
+  telefono       String   @unique
   correo         String?
   observaciones  String?
   activo         Boolean  @default(true)
@@ -22,24 +22,61 @@ model Cliente {
   pedidos Pedido[]
 
   @@index([nombres])
-  @@index([telefono])
   @@index([apellidos])
 }
 
 model Producto {
-  id             Int      @id @default(autoincrement())
-  nombre         String
-  categoria      String?
-  descripcion    String?
-  precioBase     Int
-  activo         Boolean  @default(true)
+  id Int @id @default(autoincrement())
+
+  nombre String
+
+  categoria CategoriaProducto
+
+  activo Boolean @default(true)
+
   fechaCreacion  DateTime @default(now())
   fechaActualiza DateTime @updatedAt
 
   detalles DetallePedido[]
 
+  variantes VarianteProducto[]
+
   @@index([nombre])
-  @@index([categoria])
+}
+
+model VarianteProducto {
+  id Int @id @default(autoincrement())
+
+  nombre String
+
+  medida String?
+
+  precioBase Int
+
+  bajoPedido Boolean @default(false)
+
+  activo Boolean @default(true)
+
+  productoId Int
+
+  producto Producto @relation(fields: [productoId], references: [id], onDelete: Cascade)
+
+  orden Int @default(0)
+
+  fechaCreacion  DateTime        @default(now())
+  fechaActualiza DateTime        @updatedAt
+  detallePedidos DetallePedido[]
+
+  @@unique([productoId, nombre, medida])
+}
+
+enum CategoriaProducto {
+  RETABLOS
+  REGALOS_PERSONALIZADOS
+  PORTARRETRATOS
+  COMBOS
+  COJINES
+  ALBUMES
 }
 
 model Pedido {
@@ -68,22 +105,34 @@ model Pedido {
 }
 
 model DetallePedido {
-  id             Int      @id @default(autoincrement())
-  pedidoId       Int
-  productoId     Int?
-  nombreProducto String
-  descripcion    String?
-  cantidad       Int      @default(1)
-  precioUnitario Int
-  descuento      Int      @default(0)
-  subtotal       Int
-  fechaCreacion  DateTime @default(now())
+  id Int @id @default(autoincrement())
 
-  pedido   Pedido    @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
-  producto Producto? @relation(fields: [productoId], references: [id])
+  pedidoId Int
+
+  varianteId Int?
+
+  nombreProducto String
+
+  nombreVariante String?
+
+  cantidad Int @default(1)
+
+  precioUnitario Int
+
+  descuento Int @default(0)
+
+  subtotal Int
+
+  fechaCreacion DateTime @default(now())
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+
+  variante   VarianteProducto? @relation(fields: [varianteId], references: [id])
+  producto   Producto?         @relation(fields: [productoId], references: [id])
+  productoId Int?
 
   @@index([pedidoId])
-  @@index([productoId])
+  @@index([varianteId])
 }
 
 model Pago {

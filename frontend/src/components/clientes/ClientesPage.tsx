@@ -4,9 +4,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { Search } from "lucide-react";
 import ClienteFicha from "./ClienteFicha";
 import ClienteHistorial from "./ClienteHistorial";
 import { formularioInicial } from "./data/datos";
+import { REGISTROS_POR_PAGINA } from "../../constants/config";
 import {
   consultarClientes,
   consultarClientePorId,
@@ -33,6 +35,7 @@ function ClientesPage() {
   const [cargando, setCargando] = useState(true);
   const [guardando, setGuardando] = useState(false);
   const [errorCarga, setErrorCarga] = useState("");
+  const [paginaActual, setPaginaActual] = useState(1);
 
   const [busqueda, setBusqueda] = useState("");
 
@@ -106,6 +109,32 @@ function ClientesPage() {
       );
     });
   }, [busqueda, clientes]);
+
+  //Paginación --FILTRADOS
+  const indiceInicial = (paginaActual - 1) * REGISTROS_POR_PAGINA;
+
+  const indiceFinal = indiceInicial + REGISTROS_POR_PAGINA;
+
+  const clientesPaginados = clientesFiltrados.slice(
+    indiceInicial,
+    indiceFinal
+  );
+
+  const totalPaginas = Math.ceil(
+    clientesFiltrados.length / REGISTROS_POR_PAGINA
+  );
+
+  const irPaginaAnterior = () => {
+    if (paginaActual > 1) {
+      setPaginaActual((pagina) => pagina - 1);
+    }
+  };
+
+  const irPaginaSiguiente = () => {
+    if (paginaActual < totalPaginas) {
+      setPaginaActual((pagina) => pagina + 1);
+    }
+  };
 
   const pedidosClienteSeleccionado: PedidoCliente[] = [];
 
@@ -282,23 +311,60 @@ function ClientesPage() {
         </div>
 
         <div className="clientes-herramientas">
-          <label className="clientes-buscador">
-            <span>🔍</span>
 
-            <input
-              type="search"
-              value={busqueda}
-              onChange={(evento) =>
-                setBusqueda(evento.target.value)
+          <div className="herramientas-izquierda">
+
+            <label className="clientes-buscador">
+
+              <Search className="buscador-icono" size={20} />
+
+              <input
+                type="search"
+                value={busqueda}
+                onChange={(evento) =>
+                  setBusqueda(evento.target.value)
+                }
+                placeholder="Buscar por nombre, celular, documento o correo"
+              />
+
+            </label>
+
+            <span className="clientes-contador">
+              {clientesFiltrados.length} resultado
+              {clientesFiltrados.length === 1 ? "" : "s"}
+            </span>
+
+          </div>
+
+          <div className="herramientas-derecha">
+
+            <button
+              className="paginacion-btn"
+              onClick={irPaginaAnterior}
+              disabled={paginaActual === 1}
+              title="Página anterior"
+            >
+              ◀
+            </button>
+
+            <span className="paginacion-texto">
+              Página {paginaActual} de {totalPaginas || 1}
+            </span>
+
+            <button
+              className="paginacion-btn"
+              onClick={irPaginaSiguiente}
+              disabled={
+                paginaActual === totalPaginas ||
+                totalPaginas === 0
               }
-              placeholder="Buscar por nombre, celular, documento o correo"
-            />
-          </label>
+              title="Página siguiente"
+            >
+              ▶
+            </button>
 
-          <span className="clientes-contador">
-            {clientesFiltrados.length} resultado
-            {clientesFiltrados.length === 1 ? "" : "s"}
-          </span>
+          </div>
+
         </div>
 
         <div className="clientes-tabla-contenedor">
@@ -334,7 +400,7 @@ function ClientesPage() {
                 </thead>
 
                 <tbody>
-                  {clientesFiltrados.map((cliente) => (
+                  {clientesPaginados.map((cliente) => (
                     <tr key={cliente.id}>
                       <td>
                         <div className="cliente-identidad">
@@ -407,6 +473,8 @@ function ClientesPage() {
                   ))}
                 </tbody>
               </table>
+
+           
 
               {clientesFiltrados.length === 0 && (
                 <div className="clientes-vacio">

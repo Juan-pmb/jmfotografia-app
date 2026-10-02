@@ -276,19 +276,19 @@ export type ClienteOrderByWithRelationInput = {
 export type ClienteWhereUniqueInput = Prisma.AtLeast<{
   id?: number
   documento?: string
+  telefono?: string
   AND?: Prisma.ClienteWhereInput | Prisma.ClienteWhereInput[]
   OR?: Prisma.ClienteWhereInput[]
   NOT?: Prisma.ClienteWhereInput | Prisma.ClienteWhereInput[]
   nombres?: Prisma.StringFilter<"Cliente"> | string
   apellidos?: Prisma.StringNullableFilter<"Cliente"> | string | null
-  telefono?: Prisma.StringFilter<"Cliente"> | string
   correo?: Prisma.StringNullableFilter<"Cliente"> | string | null
   observaciones?: Prisma.StringNullableFilter<"Cliente"> | string | null
   activo?: Prisma.BoolFilter<"Cliente"> | boolean
   fechaCreacion?: Prisma.DateTimeFilter<"Cliente"> | Date | string
   fechaActualiza?: Prisma.DateTimeFilter<"Cliente"> | Date | string
   pedidos?: Prisma.PedidoListRelationFilter
-}, "id" | "documento">
+}, "id" | "documento" | "telefono">
 
 export type ClienteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

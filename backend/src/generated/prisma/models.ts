@@ -10,6 +10,7 @@
  */
 export type * from './models/Cliente.js'
 export type * from './models/Producto.js'
+export type * from './models/VarianteProducto.js'
 export type * from './models/Pedido.js'
 export type * from './models/DetallePedido.js'
 export type * from './models/Pago.js'

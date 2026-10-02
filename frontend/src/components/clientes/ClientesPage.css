@@ -20,7 +20,7 @@
   box-shadow: 0 5px 18px rgb(30 41 59 / 5%);
 }
 
-.clientes-resumen-tarjeta > span {
+.clientes-resumen-tarjeta>span {
   display: grid;
   width: 44px;
   height: 44px;
@@ -91,15 +91,32 @@
   background: #fafbfc;
 }
 
+.herramientas-izquierda {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.herramientas-derecha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+
+
 .clientes-buscador {
   display: flex;
   align-items: center;
-  gap: 10px;
-  width: min(520px, 100%);
-  padding: 0 13px;
+  gap: 12px;
+
+  width: min(650px, 100%);
+
+  padding: 0 16px;
   border: 1px solid #dce1e6;
-  border-radius: 9px;
   background: white;
+  border-radius: 9px;
 }
 
 .clientes-buscador input {
@@ -110,10 +127,55 @@
   background: transparent;
 }
 
+.buscador-icono {
+  flex-shrink: 0;
+  color: #707782;
+  stroke-width: 2.2;
+}
+
 .clientes-contador {
   color: #707782;
   font-size: 13px;
+  padding-left: 4px;
 }
+
+/*BOTONES DE PAGINACION */
+
+.paginacion-btn {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #dce1e6;
+  border-radius: 8px;
+
+  background: white;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+/* HOVER DE PAGINACION*/
+.paginacion-btn:hover:not(:disabled) {
+  background: #f5f7fa;
+}
+
+.paginacion-btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+.paginacion-texto {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+
 
 .clientes-tabla-contenedor {
   overflow-x: auto;
@@ -215,7 +277,7 @@
   text-align: center;
 }
 
-.clientes-vacio > span {
+.clientes-vacio>span {
   font-size: 36px;
 }
 
@@ -382,7 +444,7 @@
 }
 
 .cliente-ficha h2,
-.cliente-ficha > p {
+.cliente-ficha>p {
   text-align: center;
 }
 
@@ -390,7 +452,7 @@
   margin: 0;
 }
 
-.cliente-ficha > p {
+.cliente-ficha>p {
   margin: 7px 0 25px;
   color: #757d87;
 }
@@ -400,14 +462,14 @@
   border-block: 1px solid #e8ebee;
 }
 
-.cliente-ficha-datos > div {
+.cliente-ficha-datos>div {
   display: grid;
   gap: 5px;
   padding: 15px 2px;
   border-bottom: 1px solid #edf0f2;
 }
 
-.cliente-ficha-datos > div:last-child {
+.cliente-ficha-datos>div:last-child {
   border-bottom: 0;
 }
 
@@ -428,6 +490,7 @@
 }
 
 @media (max-width: 650px) {
+
   .clientes-panel-encabezado,
   .clientes-herramientas {
     align-items: stretch;
@@ -645,7 +708,7 @@
   text-align: center;
 }
 
-.cliente-sin-pedidos > span {
+.cliente-sin-pedidos>span {
   margin-bottom: 9px;
   font-size: 28px;
 }
@@ -969,4 +1032,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.paginacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.paginacion button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.paginacion span {
+  font-weight: 600;
 }

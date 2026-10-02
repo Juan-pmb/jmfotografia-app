@@ -1,5 +1,5 @@
 import cors from "cors";
-import { clientesRouter } from "./routes/clientes.routes.js";
+import { clientesRouter } from "./modules/clientes/routes/clientes.routes.js";
 import express, { type Request, type Response } from "express";
 import { formatearTexto } from "./utils/formato.js"
 

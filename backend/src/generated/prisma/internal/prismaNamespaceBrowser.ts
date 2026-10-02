@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Cliente: 'Cliente',
   Producto: 'Producto',
+  VarianteProducto: 'VarianteProducto',
   Pedido: 'Pedido',
   DetallePedido: 'DetallePedido',
   Pago: 'Pago'
@@ -91,14 +92,28 @@ export const ProductoScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   categoria: 'categoria',
-  descripcion: 'descripcion',
-  precioBase: 'precioBase',
   activo: 'activo',
   fechaCreacion: 'fechaCreacion',
   fechaActualiza: 'fechaActualiza'
 } as const
 
 export type ProductoScalarFieldEnum = (typeof ProductoScalarFieldEnum)[keyof typeof ProductoScalarFieldEnum]
+
+
+export const VarianteProductoScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  medida: 'medida',
+  precioBase: 'precioBase',
+  bajoPedido: 'bajoPedido',
+  activo: 'activo',
+  productoId: 'productoId',
+  orden: 'orden',
+  fechaCreacion: 'fechaCreacion',
+  fechaActualiza: 'fechaActualiza'
+} as const
+
+export type VarianteProductoScalarFieldEnum = (typeof VarianteProductoScalarFieldEnum)[keyof typeof VarianteProductoScalarFieldEnum]
 
 
 export const PedidoScalarFieldEnum = {
@@ -123,14 +138,15 @@ export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof 
 export const DetallePedidoScalarFieldEnum = {
   id: 'id',
   pedidoId: 'pedidoId',
-  productoId: 'productoId',
+  varianteId: 'varianteId',
   nombreProducto: 'nombreProducto',
-  descripcion: 'descripcion',
+  nombreVariante: 'nombreVariante',
   cantidad: 'cantidad',
   precioUnitario: 'precioUnitario',
   descuento: 'descuento',
   subtotal: 'subtotal',
-  fechaCreacion: 'fechaCreacion'
+  fechaCreacion: 'fechaCreacion',
+  productoId: 'productoId'
 } as const
 
 export type DetallePedidoScalarFieldEnum = (typeof DetallePedidoScalarFieldEnum)[keyof typeof DetallePedidoScalarFieldEnum]

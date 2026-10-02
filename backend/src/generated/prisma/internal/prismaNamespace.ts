@@ -386,6 +386,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Cliente: 'Cliente',
   Producto: 'Producto',
+  VarianteProducto: 'VarianteProducto',
   Pedido: 'Pedido',
   DetallePedido: 'DetallePedido',
   Pago: 'Pago'
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "cliente" | "producto" | "pedido" | "detallePedido" | "pago"
+    modelProps: "cliente" | "producto" | "varianteProducto" | "pedido" | "detallePedido" | "pago"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ProductoCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ProductoCountAggregateOutputType> | number
+        }
+      }
+    }
+    VarianteProducto: {
+      payload: Prisma.$VarianteProductoPayload<ExtArgs>
+      fields: Prisma.VarianteProductoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.VarianteProductoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.VarianteProductoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        findFirst: {
+          args: Prisma.VarianteProductoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.VarianteProductoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        findMany: {
+          args: Prisma.VarianteProductoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>[]
+        }
+        create: {
+          args: Prisma.VarianteProductoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        createMany: {
+          args: Prisma.VarianteProductoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.VarianteProductoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>[]
+        }
+        delete: {
+          args: Prisma.VarianteProductoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        update: {
+          args: Prisma.VarianteProductoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        deleteMany: {
+          args: Prisma.VarianteProductoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.VarianteProductoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.VarianteProductoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>[]
+        }
+        upsert: {
+          args: Prisma.VarianteProductoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$VarianteProductoPayload>
+        }
+        aggregate: {
+          args: Prisma.VarianteProductoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateVarianteProducto>
+        }
+        groupBy: {
+          args: Prisma.VarianteProductoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VarianteProductoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.VarianteProductoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.VarianteProductoCountAggregateOutputType> | number
         }
       }
     }
@@ -834,14 +909,28 @@ export const ProductoScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
   categoria: 'categoria',
-  descripcion: 'descripcion',
-  precioBase: 'precioBase',
   activo: 'activo',
   fechaCreacion: 'fechaCreacion',
   fechaActualiza: 'fechaActualiza'
 } as const
 
 export type ProductoScalarFieldEnum = (typeof ProductoScalarFieldEnum)[keyof typeof ProductoScalarFieldEnum]
+
+
+export const VarianteProductoScalarFieldEnum = {
+  id: 'id',
+  nombre: 'nombre',
+  medida: 'medida',
+  precioBase: 'precioBase',
+  bajoPedido: 'bajoPedido',
+  activo: 'activo',
+  productoId: 'productoId',
+  orden: 'orden',
+  fechaCreacion: 'fechaCreacion',
+  fechaActualiza: 'fechaActualiza'
+} as const
+
+export type VarianteProductoScalarFieldEnum = (typeof VarianteProductoScalarFieldEnum)[keyof typeof VarianteProductoScalarFieldEnum]
 
 
 export const PedidoScalarFieldEnum = {
@@ -866,14 +955,15 @@ export type PedidoScalarFieldEnum = (typeof PedidoScalarFieldEnum)[keyof typeof 
 export const DetallePedidoScalarFieldEnum = {
   id: 'id',
   pedidoId: 'pedidoId',
-  productoId: 'productoId',
+  varianteId: 'varianteId',
   nombreProducto: 'nombreProducto',
-  descripcion: 'descripcion',
+  nombreVariante: 'nombreVariante',
   cantidad: 'cantidad',
   precioUnitario: 'precioUnitario',
   descuento: 'descuento',
   subtotal: 'subtotal',
-  fechaCreacion: 'fechaCreacion'
+  fechaCreacion: 'fechaCreacion',
+  productoId: 'productoId'
 } as const
 
 export type DetallePedidoScalarFieldEnum = (typeof DetallePedidoScalarFieldEnum)[keyof typeof DetallePedidoScalarFieldEnum]
@@ -940,6 +1030,13 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'DateTime'
  */
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+/**
+ * Reference to a field of type 'CategoriaProducto'
+ */
+export type EnumCategoriaProductoFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CategoriaProducto'>
     
 
 
@@ -1061,6 +1158,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   cliente?: Prisma.ClienteOmit
   producto?: Prisma.ProductoOmit
+  varianteProducto?: Prisma.VarianteProductoOmit
   pedido?: Prisma.PedidoOmit
   detallePedido?: Prisma.DetallePedidoOmit
   pago?: Prisma.PagoOmit
