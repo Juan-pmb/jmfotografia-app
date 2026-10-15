@@ -1,0 +1,42 @@
+:root {
+  /* Identidad Glassmorphism JMfotografía */
+  --color-primary: #414146;
+  --color-primary-hover: #55555B;
+  --color-accent: #B9B9BE;
+
+  --color-focus: #FF884D;
+  --color-focus-ring: rgba(255, 136, 77, 0.10);
+
+  /* Fondo: la imagen degradada se aplicará en App.css */
+  --color-background: #171419;
+  --color-surface: rgba(65, 65, 70, 0.48);
+  --color-border: rgba(255, 255, 255, 0.18);
+
+  /* Cristal gris humo mate */
+  --glass-background: rgba(65, 65, 70, 0.48);
+  --glass-background-light: rgba(65, 65, 70, 0.32);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-blur: 12px;
+  --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+
+  /* Textos */
+  --color-text: #F5F5F7;
+  --color-text-muted: #C2C2C8;
+  --color-text-inverse: #FFFFFF;
+
+  /* Estados */
+  --color-success: #4ADE80;
+  --color-danger: #F87171;
+  --color-warning: #FBBF24;
+  --color-neutral: #B9B9BE;
+  --color-info: #93C5FD;
+
+  /* Navegación heredada */
+  --color-sidebar: #29292E;
+  --color-sidebar-hover: #414146;
+  --color-sidebar-text: #F5F5F7;
+  --color-sidebar-muted: #C2C2C8;
+
+  /* Superficies secundarias */
+  --color-surface-muted: rgba(255, 255, 255, 0.08);
+}

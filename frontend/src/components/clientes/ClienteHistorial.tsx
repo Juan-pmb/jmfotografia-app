@@ -45,7 +45,7 @@ function ClienteHistorial({
         </strong>
       </div>
 
-      <div className="cliente-pagina-encabezado">
+      <div className="superficie cliente-pagina-encabezado">
         <div className="cliente-pagina-identidad">
           <span className="cliente-pagina-avatar">
             {cliente.nombres.charAt(0)}
@@ -67,16 +67,16 @@ function ClienteHistorial({
         <div className="cliente-pagina-acciones">
           <button
             type="button"
-            className="cliente-accion-secundaria"
+            className="boton boton--secundario cliente-accion-secundaria"
           >
             Editar cliente
           </button>
 
           <button
             type="button"
-            className="clientes-boton-principal"
+            className="boton boton--principal cliente-accion-principal"
           >
-            + Nuevo pedido
+             Nuevo pedido
           </button>
         </div>
       </div>
@@ -109,7 +109,7 @@ function ClienteHistorial({
         </article>
       </div>
 
-      <div className="cliente-pagina-panel">
+      <div className="superficie cliente-pagina-panel">
         <div className="cliente-pagina-panel-encabezado">
           <div>
             <h3>Historial de pedidos</h3>
@@ -118,11 +118,12 @@ function ClienteHistorial({
 
           <div className="cliente-pagina-filtros">
             <input
+              className="campo"
               type="search"
               placeholder="Buscar pedido o producto"
             />
 
-            <select defaultValue="">
+            <select className="campo" defaultValue="">
               <option value="">Todos los estados</option>
               <option value="Recibido">Recibido</option>
               <option value="En edición">En edición</option>
@@ -136,7 +137,7 @@ function ClienteHistorial({
         </div>
 
         <div className="cliente-pagina-tabla-contenedor">
-          <table className="cliente-pagina-tabla">
+          <table className="tabla cliente-pagina-tabla">
             <thead>
               <tr>
                 <th>Pedido</th>
@@ -181,7 +182,7 @@ function ClienteHistorial({
                   <td>
                     <button
                       type="button"
-                      className="clientes-boton-ver"
+                      className="boton boton--secundario clientes-boton-ver"
                     >
                       Abrir
                     </button>

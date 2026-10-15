@@ -17,6 +17,7 @@ export type Cliente = {
   saldoPendiente: number;
   ultimaVisita: string;
   activo: boolean;
+  fechaCreacion: string;
 };
 
 export type PedidoCliente = {

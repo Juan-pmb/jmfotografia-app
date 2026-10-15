@@ -3,6 +3,8 @@ import type { Cliente, PedidoCliente } from "./types/tipos";
 type ClienteFichaProps = {
   cliente: Cliente;
   pedidos: PedidoCliente[];
+  onCambiarEstado: () => void;
+  cambiandoEstado: boolean;
   formatearDinero: (valor: number) => string;
   onCerrar: () => void;
   onVerHistorial: () => void;
@@ -24,6 +26,8 @@ function ClienteFicha({
   onCerrar,
   onVerHistorial,
   onEditar,
+  onCambiarEstado,
+  cambiandoEstado,
 }: ClienteFichaProps) {
   const ultimosPedidos = pedidos.slice(0, 3);
 
@@ -65,15 +69,35 @@ function ClienteFicha({
 
         <p>{cliente.telefono}</p>
 
+
         <div className="cliente-ficha-acciones">
-          <button type="button" className="cliente-accion-secundaria" onClick={onEditar}>
+          <button
+            type="button"
+            className="boton boton--secundario"
+            onClick={onEditar}
+          >
             Editar cliente
           </button>
 
-          <button type="button" className="cliente-accion-peligro">
-            Desactivar
+
+          <button
+            type="button"
+            className={`boton ${cliente.activo
+              ? "boton--peligro"
+              : "boton--exito "
+              }`}
+            onClick={onCambiarEstado}
+            disabled={cambiandoEstado}
+          >
+            {cambiandoEstado
+              ? "Procesando..."
+              : cliente.activo
+                ? "Desactivar"
+                : "Reactivar"}
           </button>
+
         </div>
+
 
         <section className="cliente-ficha-seccion">
           <h3>Información del cliente</h3>
@@ -191,7 +215,7 @@ function ClienteFicha({
         {pedidos.length > 0 && (
           <button
             type="button"
-            className="cliente-ver-historial"
+            className="boton boton--secundario cliente-ver-historial"
             onClick={onVerHistorial}
           >
             Ver historial completo
@@ -204,9 +228,9 @@ function ClienteFicha({
 
         <button
           type="button"
-          className="clientes-boton-principal cliente-ficha-pedido"
+          className="boton boton--principal cliente-ficha-pedido"
         >
-          + Crear pedido para este cliente
+          Crear pedido para este cliente
         </button>
       </aside>
     </div>

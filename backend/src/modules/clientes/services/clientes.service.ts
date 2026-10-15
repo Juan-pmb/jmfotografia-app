@@ -180,4 +180,25 @@ export class ClientesService {
 
   }
 
+  //Activar o desactivar cliente
+  
+async cambiarEstadoCliente(id: number, activo: boolean) {
+  if (!Number.isInteger(id) || id <= 0) {
+    throw new Error("El identificador del cliente no es válido.");
+  }
+
+  const cliente = await this.repository.obtenerCliente(id);
+
+  if (!cliente) {
+    throw new Error("Cliente no encontrado.");
+  }
+
+  if (cliente.activo === activo) {
+    return cliente;
+  }
+
+  return this.repository.actualizarCliente(id, { activo });
+}
+
+
 }

@@ -1,3 +1,4 @@
+//ClientesPage.tsx
 import {
   type FormEvent,
   useEffect,
@@ -14,6 +15,7 @@ import {
   consultarClientePorId,
   registrarCliente,
   actualizarCliente,
+  cambiarEstadoCliente,
 } from "./services/clientes.service";
 import type {
   Cliente,
@@ -55,6 +57,62 @@ function ClientesPage() {
 
   const [error, setError] = useState("");
 
+
+  //cambiar estado del cliente
+  const [cambiandoEstado, setCambiandoEstado] = useState(false);
+
+  //confirmación de cambio de estado.
+  const [confirmacionEstadoAbierta, setConfirmacionEstadoAbierta] =
+    useState(false);
+
+  const [estadoPendiente, setEstadoPendiente] = useState<boolean | null>(null);
+
+
+
+  function solicitarCambioEstadoCliente() {
+    if (!clienteSeleccionado || cambiandoEstado) return;
+
+    setEstadoPendiente(!clienteSeleccionado.activo);
+    setConfirmacionEstadoAbierta(true);
+  }
+
+  async function confirmarCambioEstadoCliente() {
+    if (!clienteSeleccionado || estadoPendiente === null || cambiandoEstado) {
+      return;
+    }
+
+    try {
+      setCambiandoEstado(true);
+
+      const clienteActualizado = await cambiarEstadoCliente(
+        clienteSeleccionado.id,
+        estadoPendiente,
+      );
+
+      setClientes((anteriores) =>
+        anteriores.map((item) =>
+          item.id === clienteActualizado.id
+            ? { ...item, ...clienteActualizado }
+            : item,
+        ),
+      );
+
+      setClienteSeleccionado(clienteActualizado);
+      setConfirmacionEstadoAbierta(false);
+      setEstadoPendiente(null);
+    } catch (error) {
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "No fue posible cambiar el estado del cliente.",
+      );
+    } finally {
+      setCambiandoEstado(false);
+    }
+  }
+
+
+
   useEffect(() => {
     let componenteActivo = true;
 
@@ -90,6 +148,30 @@ function ClientesPage() {
     };
   }, []);
 
+  //nuevos este mes
+
+  const nuevosEsteMes = useMemo(() => {
+    const ahora = new Date();
+
+    return clientes.filter((cliente) => {
+      // La fecha se incorporará al tipo Cliente en el siguiente ajuste.
+      const fechaCreacion = (
+        cliente as Cliente & { fechaCreacion?: string }
+      ).fechaCreacion;
+
+      if (!fechaCreacion) return false;
+
+      const fecha = new Date(fechaCreacion);
+
+      return (
+        !Number.isNaN(fecha.getTime()) &&
+        fecha.getMonth() === ahora.getMonth() &&
+        fecha.getFullYear() === ahora.getFullYear()
+      );
+    }).length;
+  }, [clientes]);
+
+
   const clientesFiltrados = useMemo(() => {
     const termino = busqueda.trim().toLowerCase();
 
@@ -111,6 +193,7 @@ function ClientesPage() {
   }, [busqueda, clientes]);
 
   //Paginación --FILTRADOS
+  const REGISTROS_POR_PAGINA = 4;
   const indiceInicial = (paginaActual - 1) * REGISTROS_POR_PAGINA;
 
   const indiceFinal = indiceInicial + REGISTROS_POR_PAGINA;
@@ -257,7 +340,7 @@ function ClientesPage() {
   return (
     <section className="clientes-modulo">
       <div className="clientes-resumen">
-        <article className="clientes-resumen-tarjeta">
+        <article className="superficie tarjeta clientes-resumen-tarjeta">
           <span>👥</span>
 
           <div>
@@ -266,16 +349,16 @@ function ClientesPage() {
           </div>
         </article>
 
-        <article className="clientes-resumen-tarjeta">
+        <article className="superficie tarjeta clientes-resumen-tarjeta">
           <span>🆕</span>
 
           <div>
             <p>Nuevos este mes</p>
-            <strong>8</strong>
+            <strong>{nuevosEsteMes}</strong>
           </div>
         </article>
 
-        <article className="clientes-resumen-tarjeta">
+        <article className="superficie tarjeta clientes-resumen-tarjeta">
           <span>💰</span>
 
           <div>
@@ -294,7 +377,7 @@ function ClientesPage() {
         </article>
       </div>
 
-      <div className="clientes-panel">
+      <div className="superficie clientes-panel">
         <div className="clientes-panel-encabezado">
           <div>
             <h2>Directorio de clientes</h2>
@@ -303,10 +386,10 @@ function ClientesPage() {
 
           <button
             type="button"
-            className="clientes-boton-principal"
+            className="boton boton--principal clientes-boton-principal"
             onClick={() => setModalAbierto(true)}
           >
-            + Nuevo cliente
+            Nuevo cliente
           </button>
         </div>
 
@@ -314,20 +397,19 @@ function ClientesPage() {
 
           <div className="herramientas-izquierda">
 
+
             <label className="clientes-buscador">
-
-              <Search className="buscador-icono" size={20} />
-
               <input
                 type="search"
                 value={busqueda}
-                onChange={(evento) =>
-                  setBusqueda(evento.target.value)
-                }
+                onChange={(evento) => {setBusqueda(evento.target.value);
+                  setPaginaActual(1);
+                }}
                 placeholder="Buscar por nombre, celular, documento o correo"
+                aria-label="Buscar clientes"
               />
-
             </label>
+
 
             <span className="clientes-contador">
               {clientesFiltrados.length} resultado
@@ -339,7 +421,7 @@ function ClientesPage() {
           <div className="herramientas-derecha">
 
             <button
-              className="paginacion-btn"
+              className="boton boton--secundario paginacion-btn"
               onClick={irPaginaAnterior}
               disabled={paginaActual === 1}
               title="Página anterior"
@@ -352,7 +434,7 @@ function ClientesPage() {
             </span>
 
             <button
-              className="paginacion-btn"
+              className="boton boton--secundario paginacion-btn"
               onClick={irPaginaSiguiente}
               disabled={
                 paginaActual === totalPaginas ||
@@ -386,7 +468,7 @@ function ClientesPage() {
 
           {!cargando && !errorCarga && (
             <>
-              <table className="clientes-tabla">
+              <table className="tabla clientes-tabla">
                 <thead>
                   <tr>
                     <th>Cliente</th>
@@ -395,7 +477,7 @@ function ClientesPage() {
                     <th>Pedidos</th>
                     <th>Última visita</th>
                     <th>Saldo</th>
-                    <th>Acciones</th>
+                    <th className="tabla-columna-acciones">Acciones</th>
                   </tr>
                 </thead>
 
@@ -410,11 +492,20 @@ function ClientesPage() {
                           </span>
 
                           <div>
-                            <strong>
+
+                            <strong
+                              className={
+                                cliente.activo
+                                  ? undefined
+                                  : "cliente-nombre-inactivo"
+                              }
+                              title={cliente.activo ? "Cliente activo" : "Cliente inactivo"}
+                            >
                               {[cliente.nombres, cliente.apellidos]
                                 .filter(Boolean)
                                 .join(" ")}
                             </strong>
+
 
                             <small>
                               {cliente.correo ||
@@ -449,10 +540,10 @@ function ClientesPage() {
                         </strong>
                       </td>
 
-                      <td>
+                      <td className="tabla-columna-acciones">
                         <button
                           type="button"
-                          className="clientes-boton-ver"
+                          className="boton boton--secundario clientes-boton-ver"
                           onClick={async () => {
                             try {
                               const clienteCompleto =
@@ -474,7 +565,7 @@ function ClientesPage() {
                 </tbody>
               </table>
 
-           
+
 
               {clientesFiltrados.length === 0 && (
                 <div className="clientes-vacio">
@@ -493,11 +584,11 @@ function ClientesPage() {
 
       {modalAbierto && (
         <div
-          className="clientes-modal-fondo"
+          className="fondo-modal clientes-modal-fondo"
           onMouseDown={cerrarFormulario}
         >
           <div
-            className="clientes-modal"
+            className="superficie  clientes-modal"
             onMouseDown={(evento) =>
               evento.stopPropagation()
             }
@@ -532,6 +623,7 @@ function ClientesPage() {
                 <label>
                   Nombres *
                   <input
+                    className="campo"
                     value={formulario.nombres}
                     onChange={(evento) =>
                       actualizarCampo(
@@ -546,6 +638,7 @@ function ClientesPage() {
                 <label>
                   Apellidos
                   <input
+                    className="campo"
                     value={formulario.apellidos}
                     onChange={(evento) =>
                       actualizarCampo(
@@ -559,6 +652,7 @@ function ClientesPage() {
                 <label>
                   Celular *
                   <input
+                    className="campo"
                     value={formulario.telefono}
                     onChange={(evento) =>
                       actualizarCampo(
@@ -576,6 +670,7 @@ function ClientesPage() {
                 <label>
                   Documento
                   <input
+                    className="campo"
                     value={formulario.documento}
                     onChange={(evento) =>
                       actualizarCampo(
@@ -593,6 +688,7 @@ function ClientesPage() {
                 <label>
                   Correo
                   <input
+                    className="campo"
                     type="email"
                     value={formulario.correo}
                     onChange={(evento) =>
@@ -610,6 +706,7 @@ function ClientesPage() {
               <label className="clientes-campo-completo">
                 Observaciones
                 <textarea
+                  className="campo"
                   rows={3}
                   value={formulario.observaciones}
                   onChange={(evento) =>
@@ -630,7 +727,7 @@ function ClientesPage() {
               <div className="clientes-formulario-acciones">
                 <button
                   type="button"
-                  className="clientes-boton-cancelar"
+                  className="boton boton--secundario clientes-boton-cancelar"
                   onClick={cerrarFormulario}
                   disabled={guardando}
                 >
@@ -639,7 +736,7 @@ function ClientesPage() {
 
                 <button
                   type="submit"
-                  className="clientes-boton-principal"
+                  className="boton boton--secundario  clientes-boton-principal"
                   disabled={guardando}
                 >
                   {guardando
@@ -656,6 +753,8 @@ function ClientesPage() {
 
       {clienteSeleccionado && (
         <ClienteFicha
+          onCambiarEstado={solicitarCambioEstadoCliente}
+          cambiandoEstado={cambiandoEstado}
           cliente={clienteSeleccionado}
           pedidos={pedidosClienteSeleccionado}
           formatearDinero={formatearDinero}
@@ -684,6 +783,74 @@ function ClientesPage() {
           }}
 
         />
+      )}
+
+
+      {confirmacionEstadoAbierta && estadoPendiente !== null && (
+        <div
+          className="fondo-modal clientes-confirmacion-fondo"
+          onMouseDown={() => {
+            if (!cambiandoEstado) {
+              setConfirmacionEstadoAbierta(false);
+              setEstadoPendiente(null);
+            }
+          }}
+        >
+          <div
+            className="superficie  clientes-confirmacion"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="confirmacion-estado-titulo"
+            onMouseDown={(evento) => evento.stopPropagation()}
+          >
+            <div className="clientes-confirmacion-icono">
+              {estadoPendiente ? "✓" : "!"}
+            </div>
+
+            <h2 id="confirmacion-estado-titulo">
+              {estadoPendiente ? "¿Reactivar cliente?" : "¿Desactivar cliente?"}
+            </h2>
+
+            <p>
+              {estadoPendiente
+                ? `¿Deseas reactivar a ${clienteSeleccionado?.nombres} ${clienteSeleccionado?.apellidos}?`
+                : `¿Deseas desactivar a ${clienteSeleccionado?.nombres} ${clienteSeleccionado?.apellidos}?`}
+            </p>
+
+            <p className="clientes-confirmacion-nota">
+              {estadoPendiente
+                ? "El cliente volverá a estar activo. Su información se conservará."
+                : "El cliente quedará inactivo, pero su información e historial se conservarán."}
+            </p>
+
+            <div className="clientes-confirmacion-acciones">
+              <button
+                type="button"
+                className="boton boton--secundario"
+                disabled={cambiandoEstado}
+                onClick={() => {
+                  setConfirmacionEstadoAbierta(false);
+                  setEstadoPendiente(null);
+                }}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="button"
+                className="boton boton--principal clientes-boton-principal"
+                disabled={cambiandoEstado}
+                onClick={confirmarCambioEstadoCliente}
+              >
+                {cambiandoEstado
+                  ? "Procesando..."
+                  : estadoPendiente
+                    ? "Sí, reactivar"
+                    : "Sí, desactivar"}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </section>
   );

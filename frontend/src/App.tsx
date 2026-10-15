@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ClientesPage from "./components/clientes/ClientesPage";
+import ProductosPage from "./components/productos/ProductosPage";
 import "./App.css";
+
 
 type Seccion =
   | "dashboard"
@@ -50,6 +52,14 @@ function App() {
   const [seccionActiva, setSeccionActiva] =
     useState<Seccion>("dashboard");
 
+    useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "instant",
+  });
+}, [seccionActiva]);
+
   const opciones: Array<{
     id: Seccion;
     icono: string;
@@ -66,42 +76,33 @@ function App() {
 
   return (
     <div className="aplicacion">
-      <aside className="barra-lateral">
-        <div className="marca">
-          <div className="marca-logo">JM</div>
 
-          <div>
-            <strong>JMfotografía</strong>
-            <span>Administración</span>
-          </div>
-        </div>
+<header className="barra-navegacion">
+  <div className="marca">
+    <strong>JMFotografía</strong>
+  </div>
 
-        <nav className="menu">
-          {opciones.map((opcion) => (
-            <button
-              key={opcion.id}
-              className={
-                seccionActiva === opcion.id
-                  ? "menu-opcion activa"
-                  : "menu-opcion"
-              }
-              onClick={() => setSeccionActiva(opcion.id)}
-            >
-              <span>{opcion.icono}</span>
-              {opcion.texto}
-            </button>
-          ))}
-        </nav>
+  <nav className="menu">
+    {opciones.map((opcion) => (
+      <button
+        key={opcion.id}
+        className={
+          seccionActiva === opcion.id
+            ? "menu-opcion activa"
+            : "menu-opcion"
+        }
+        onClick={() => setSeccionActiva(opcion.id)}
+      >
+        {opcion.texto}
+      </button>
+    ))}
+  </nav>
 
-        <div className="usuario">
-          <div className="usuario-avatar">JM</div>
+  <div className="navegacion-usuario">
+    Administrador
+  </div>
+</header>
 
-          <div>
-            <strong>Administrador</strong>
-            <span>JMfotografía</span>
-          </div>
-        </div>
-      </aside>
 
       <main className="contenido">
         <header className="encabezado">
@@ -175,7 +176,7 @@ function App() {
       </div>
 
       <div className="tabla-contenedor">
-        <table>
+        <table className="tabla">
           <thead>
             <tr>
               <th>Pedido</th>
@@ -216,9 +217,11 @@ function App() {
 )}
 
 {seccionActiva === "clientes" && <ClientesPage />}
+{seccionActiva === "productos" && <ProductosPage />}
 
 {seccionActiva !== "dashboard" &&
-  seccionActiva !== "clientes" && (
+  seccionActiva !== "clientes" &&
+  seccionActiva !== "productos" && (
     <section className="panel pagina-construccion">
       <span>🚧</span>
 

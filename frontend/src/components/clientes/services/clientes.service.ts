@@ -28,6 +28,7 @@ function convertirCliente(cliente: ClienteApi): Cliente {
     saldoPendiente: 0,
     ultimaVisita: "Sin pedidos",
     activo: cliente.activo,
+    fechaCreacion: cliente.fechaCreacion,
   };
 }
 
@@ -120,6 +121,35 @@ export async function actualizarCliente(
       "mensaje" in datos && datos.mensaje
         ? datos.mensaje
         : "No fue posible actualizar el cliente.",
+    );
+  }
+
+  return convertirCliente(datos as ClienteApi);
+}
+
+//cambiar estado del cliente
+
+export async function cambiarEstadoCliente(
+  id: number,
+  activo: boolean,
+): Promise<Cliente> {
+  const respuesta = await fetch(`${API_URL}/${id}/estado`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ activo }),
+  });
+
+  const datos = (await respuesta.json()) as
+    | ClienteApi
+    | { mensaje?: string };
+
+  if (!respuesta.ok) {
+    throw new Error(
+      "mensaje" in datos && datos.mensaje
+        ? datos.mensaje
+        : "No fue posible cambiar el estado del cliente.",
     );
   }
 

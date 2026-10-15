@@ -1,0 +1,212 @@
+/* ========================================
+   COMPONENTES COMPARTIDOS — JMFOTOGRAFÍA
+   ======================================== */
+
+/* Superficies */
+.superficie {
+    color: var(--color-text);
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    box-shadow: var(--glass-shadow);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.tarjeta {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+}
+
+.panel {
+    padding: 24px;
+}
+
+/* Botones */
+.boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.boton:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.boton--principal {
+    background: rgba(45, 45, 50, 0.88);
+    color: var(--color-text);
+}
+
+.boton--principal:hover:not(:disabled) {
+    background: rgba(75, 75, 82, 0.94);
+    transform: translateY(-1px);
+}
+
+.boton--secundario {
+    background: var(--glass-background-light);
+    color: var(--color-text);
+}
+
+.boton--secundario:hover:not(:disabled) {
+    background: rgba(95, 95, 102, 0.48);
+}
+
+.boton--peligro {
+    background: rgba(248, 113, 113, 0.12);
+    color: var(--color-danger);
+}
+
+.boton--exito {
+    background: rgba(74, 222, 128, 0.14);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: var(--color-success);
+}
+
+.boton--exito:hover:not(:disabled) {
+    background: rgba(74, 222, 128, 0.24);
+    border-color: var(--color-success);
+}
+
+
+.fondo-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: rgba(20, 20, 24, 0.58);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* Campos */
+.campo {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  color: var(--color-text);
+  background: rgba(35, 35, 40, 0.42);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.campo::placeholder {
+    color: var(--color-text-muted);
+}
+
+.campo:focus {
+    outline: none;
+    border-color: #FF884D;
+    box-shadow: 0 0 0 3px rgba(255, 136, 77, 0.14);
+}
+
+.etiqueta-campo {
+  display: grid;
+  gap: 8px;
+  color: var(--color-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Tablas */
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--color-text);
+}
+
+.tabla th,
+.tabla td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--glass-border);
+    text-align: left;
+}
+
+.tabla th {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.tabla tbody tr:hover {
+    background: rgba(255, 255, 255, 0.045);
+}
+
+/* Estados */
+.estado {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: var(--color-surface-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.estado--exito {
+    background: rgba(74, 222, 128, 0.14);
+    color: var(--color-success);
+}
+
+.estado--alerta {
+    background: rgba(251, 191, 36, 0.14);
+    color: var(--color-warning);
+}
+
+.estado--error {
+    background: rgba(248, 113, 113, 0.14);
+    color: var(--color-danger);
+}
+
+/* Columna de acciones centrada */
+.tabla-columna-acciones {
+  text-align: center !important;
+}
+
+.tabla-columna-acciones .acciones {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Botones de acciones dentro de tablas */
+.tabla-boton-accion {
+  padding: 9px 12px;
+  font-size: 12px;
+  min-height: 36px;
+}
+
+
+
+/* Accesibilidad */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #FF884D;
+    outline-offset: 2px;
+}

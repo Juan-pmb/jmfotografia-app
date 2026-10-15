@@ -49,7 +49,7 @@ model VarianteProducto {
 
   nombre String
 
-  medida String?
+  descripcion String?
 
   precioBase Int
 
@@ -67,7 +67,7 @@ model VarianteProducto {
   fechaActualiza DateTime        @updatedAt
   detallePedidos DetallePedido[]
 
-  @@unique([productoId, nombre, medida])
+  @@unique([productoId, nombre, descripcion])
 }
 
 enum CategoriaProducto {

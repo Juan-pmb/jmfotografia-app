@@ -43,7 +43,7 @@ export type VarianteProductoSumAggregateOutputType = {
 export type VarianteProductoMinAggregateOutputType = {
   id: number | null
   nombre: string | null
-  medida: string | null
+  descripcion: string | null
   precioBase: number | null
   bajoPedido: boolean | null
   activo: boolean | null
@@ -56,7 +56,7 @@ export type VarianteProductoMinAggregateOutputType = {
 export type VarianteProductoMaxAggregateOutputType = {
   id: number | null
   nombre: string | null
-  medida: string | null
+  descripcion: string | null
   precioBase: number | null
   bajoPedido: boolean | null
   activo: boolean | null
@@ -69,7 +69,7 @@ export type VarianteProductoMaxAggregateOutputType = {
 export type VarianteProductoCountAggregateOutputType = {
   id: number
   nombre: number
-  medida: number
+  descripcion: number
   precioBase: number
   bajoPedido: number
   activo: number
@@ -98,7 +98,7 @@ export type VarianteProductoSumAggregateInputType = {
 export type VarianteProductoMinAggregateInputType = {
   id?: true
   nombre?: true
-  medida?: true
+  descripcion?: true
   precioBase?: true
   bajoPedido?: true
   activo?: true
@@ -111,7 +111,7 @@ export type VarianteProductoMinAggregateInputType = {
 export type VarianteProductoMaxAggregateInputType = {
   id?: true
   nombre?: true
-  medida?: true
+  descripcion?: true
   precioBase?: true
   bajoPedido?: true
   activo?: true
@@ -124,7 +124,7 @@ export type VarianteProductoMaxAggregateInputType = {
 export type VarianteProductoCountAggregateInputType = {
   id?: true
   nombre?: true
-  medida?: true
+  descripcion?: true
   precioBase?: true
   bajoPedido?: true
   activo?: true
@@ -224,7 +224,7 @@ export type VarianteProductoGroupByArgs<ExtArgs extends runtime.Types.Extensions
 export type VarianteProductoGroupByOutputType = {
   id: number
   nombre: string
-  medida: string | null
+  descripcion: string | null
   precioBase: number
   bajoPedido: boolean
   activo: boolean
@@ -260,7 +260,7 @@ export type VarianteProductoWhereInput = {
   NOT?: Prisma.VarianteProductoWhereInput | Prisma.VarianteProductoWhereInput[]
   id?: Prisma.IntFilter<"VarianteProducto"> | number
   nombre?: Prisma.StringFilter<"VarianteProducto"> | string
-  medida?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
+  descripcion?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
   precioBase?: Prisma.IntFilter<"VarianteProducto"> | number
   bajoPedido?: Prisma.BoolFilter<"VarianteProducto"> | boolean
   activo?: Prisma.BoolFilter<"VarianteProducto"> | boolean
@@ -275,7 +275,7 @@ export type VarianteProductoWhereInput = {
 export type VarianteProductoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  medida?: Prisma.SortOrderInput | Prisma.SortOrder
+  descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
   precioBase?: Prisma.SortOrder
   bajoPedido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
@@ -289,12 +289,12 @@ export type VarianteProductoOrderByWithRelationInput = {
 
 export type VarianteProductoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  productoId_nombre_medida?: Prisma.VarianteProductoProductoIdNombreMedidaCompoundUniqueInput
+  productoId_nombre_descripcion?: Prisma.VarianteProductoProductoIdNombreDescripcionCompoundUniqueInput
   AND?: Prisma.VarianteProductoWhereInput | Prisma.VarianteProductoWhereInput[]
   OR?: Prisma.VarianteProductoWhereInput[]
   NOT?: Prisma.VarianteProductoWhereInput | Prisma.VarianteProductoWhereInput[]
   nombre?: Prisma.StringFilter<"VarianteProducto"> | string
-  medida?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
+  descripcion?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
   precioBase?: Prisma.IntFilter<"VarianteProducto"> | number
   bajoPedido?: Prisma.BoolFilter<"VarianteProducto"> | boolean
   activo?: Prisma.BoolFilter<"VarianteProducto"> | boolean
@@ -304,12 +304,12 @@ export type VarianteProductoWhereUniqueInput = Prisma.AtLeast<{
   fechaActualiza?: Prisma.DateTimeFilter<"VarianteProducto"> | Date | string
   producto?: Prisma.XOR<Prisma.ProductoScalarRelationFilter, Prisma.ProductoWhereInput>
   detallePedidos?: Prisma.DetallePedidoListRelationFilter
-}, "id" | "productoId_nombre_medida">
+}, "id" | "productoId_nombre_descripcion">
 
 export type VarianteProductoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  medida?: Prisma.SortOrderInput | Prisma.SortOrder
+  descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
   precioBase?: Prisma.SortOrder
   bajoPedido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
@@ -330,7 +330,7 @@ export type VarianteProductoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.VarianteProductoScalarWhereWithAggregatesInput | Prisma.VarianteProductoScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"VarianteProducto"> | number
   nombre?: Prisma.StringWithAggregatesFilter<"VarianteProducto"> | string
-  medida?: Prisma.StringNullableWithAggregatesFilter<"VarianteProducto"> | string | null
+  descripcion?: Prisma.StringNullableWithAggregatesFilter<"VarianteProducto"> | string | null
   precioBase?: Prisma.IntWithAggregatesFilter<"VarianteProducto"> | number
   bajoPedido?: Prisma.BoolWithAggregatesFilter<"VarianteProducto"> | boolean
   activo?: Prisma.BoolWithAggregatesFilter<"VarianteProducto"> | boolean
@@ -342,7 +342,7 @@ export type VarianteProductoScalarWhereWithAggregatesInput = {
 
 export type VarianteProductoCreateInput = {
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -356,7 +356,7 @@ export type VarianteProductoCreateInput = {
 export type VarianteProductoUncheckedCreateInput = {
   id?: number
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -369,7 +369,7 @@ export type VarianteProductoUncheckedCreateInput = {
 
 export type VarianteProductoUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -383,7 +383,7 @@ export type VarianteProductoUpdateInput = {
 export type VarianteProductoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -397,7 +397,7 @@ export type VarianteProductoUncheckedUpdateInput = {
 export type VarianteProductoCreateManyInput = {
   id?: number
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -409,7 +409,7 @@ export type VarianteProductoCreateManyInput = {
 
 export type VarianteProductoUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -421,7 +421,7 @@ export type VarianteProductoUpdateManyMutationInput = {
 export type VarianteProductoUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -441,16 +441,16 @@ export type VarianteProductoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type VarianteProductoProductoIdNombreMedidaCompoundUniqueInput = {
+export type VarianteProductoProductoIdNombreDescripcionCompoundUniqueInput = {
   productoId: number
   nombre: string
-  medida: string
+  descripcion: string
 }
 
 export type VarianteProductoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  medida?: Prisma.SortOrder
+  descripcion?: Prisma.SortOrder
   precioBase?: Prisma.SortOrder
   bajoPedido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
@@ -470,7 +470,7 @@ export type VarianteProductoAvgOrderByAggregateInput = {
 export type VarianteProductoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  medida?: Prisma.SortOrder
+  descripcion?: Prisma.SortOrder
   precioBase?: Prisma.SortOrder
   bajoPedido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
@@ -483,7 +483,7 @@ export type VarianteProductoMaxOrderByAggregateInput = {
 export type VarianteProductoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
-  medida?: Prisma.SortOrder
+  descripcion?: Prisma.SortOrder
   precioBase?: Prisma.SortOrder
   bajoPedido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
@@ -565,7 +565,7 @@ export type VarianteProductoUpdateOneWithoutDetallePedidosNestedInput = {
 
 export type VarianteProductoCreateWithoutProductoInput = {
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -578,7 +578,7 @@ export type VarianteProductoCreateWithoutProductoInput = {
 export type VarianteProductoUncheckedCreateWithoutProductoInput = {
   id?: number
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -619,7 +619,7 @@ export type VarianteProductoScalarWhereInput = {
   NOT?: Prisma.VarianteProductoScalarWhereInput | Prisma.VarianteProductoScalarWhereInput[]
   id?: Prisma.IntFilter<"VarianteProducto"> | number
   nombre?: Prisma.StringFilter<"VarianteProducto"> | string
-  medida?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
+  descripcion?: Prisma.StringNullableFilter<"VarianteProducto"> | string | null
   precioBase?: Prisma.IntFilter<"VarianteProducto"> | number
   bajoPedido?: Prisma.BoolFilter<"VarianteProducto"> | boolean
   activo?: Prisma.BoolFilter<"VarianteProducto"> | boolean
@@ -631,7 +631,7 @@ export type VarianteProductoScalarWhereInput = {
 
 export type VarianteProductoCreateWithoutDetallePedidosInput = {
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -644,7 +644,7 @@ export type VarianteProductoCreateWithoutDetallePedidosInput = {
 export type VarianteProductoUncheckedCreateWithoutDetallePedidosInput = {
   id?: number
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -672,7 +672,7 @@ export type VarianteProductoUpdateToOneWithWhereWithoutDetallePedidosInput = {
 
 export type VarianteProductoUpdateWithoutDetallePedidosInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -685,7 +685,7 @@ export type VarianteProductoUpdateWithoutDetallePedidosInput = {
 export type VarianteProductoUncheckedUpdateWithoutDetallePedidosInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -698,7 +698,7 @@ export type VarianteProductoUncheckedUpdateWithoutDetallePedidosInput = {
 export type VarianteProductoCreateManyProductoInput = {
   id?: number
   nombre: string
-  medida?: string | null
+  descripcion?: string | null
   precioBase: number
   bajoPedido?: boolean
   activo?: boolean
@@ -709,7 +709,7 @@ export type VarianteProductoCreateManyProductoInput = {
 
 export type VarianteProductoUpdateWithoutProductoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -722,7 +722,7 @@ export type VarianteProductoUpdateWithoutProductoInput = {
 export type VarianteProductoUncheckedUpdateWithoutProductoInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -735,7 +735,7 @@ export type VarianteProductoUncheckedUpdateWithoutProductoInput = {
 export type VarianteProductoUncheckedUpdateManyWithoutProductoInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  medida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   precioBase?: Prisma.IntFieldUpdateOperationsInput | number
   bajoPedido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -778,7 +778,7 @@ export type VarianteProductoCountOutputTypeCountDetallePedidosArgs<ExtArgs exten
 export type VarianteProductoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
-  medida?: boolean
+  descripcion?: boolean
   precioBase?: boolean
   bajoPedido?: boolean
   activo?: boolean
@@ -794,7 +794,7 @@ export type VarianteProductoSelect<ExtArgs extends runtime.Types.Extensions.Inte
 export type VarianteProductoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
-  medida?: boolean
+  descripcion?: boolean
   precioBase?: boolean
   bajoPedido?: boolean
   activo?: boolean
@@ -808,7 +808,7 @@ export type VarianteProductoSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
 export type VarianteProductoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
-  medida?: boolean
+  descripcion?: boolean
   precioBase?: boolean
   bajoPedido?: boolean
   activo?: boolean
@@ -822,7 +822,7 @@ export type VarianteProductoSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
 export type VarianteProductoSelectScalar = {
   id?: boolean
   nombre?: boolean
-  medida?: boolean
+  descripcion?: boolean
   precioBase?: boolean
   bajoPedido?: boolean
   activo?: boolean
@@ -832,7 +832,7 @@ export type VarianteProductoSelectScalar = {
   fechaActualiza?: boolean
 }
 
-export type VarianteProductoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "medida" | "precioBase" | "bajoPedido" | "activo" | "productoId" | "orden" | "fechaCreacion" | "fechaActualiza", ExtArgs["result"]["varianteProducto"]>
+export type VarianteProductoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "descripcion" | "precioBase" | "bajoPedido" | "activo" | "productoId" | "orden" | "fechaCreacion" | "fechaActualiza", ExtArgs["result"]["varianteProducto"]>
 export type VarianteProductoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   producto?: boolean | Prisma.ProductoDefaultArgs<ExtArgs>
   detallePedidos?: boolean | Prisma.VarianteProducto$detallePedidosArgs<ExtArgs>
@@ -854,7 +854,7 @@ export type $VarianteProductoPayload<ExtArgs extends runtime.Types.Extensions.In
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nombre: string
-    medida: string | null
+    descripcion: string | null
     precioBase: number
     bajoPedido: boolean
     activo: boolean
@@ -1289,7 +1289,7 @@ export interface Prisma__VarianteProductoClient<T, Null = never, ExtArgs extends
 export interface VarianteProductoFieldRefs {
   readonly id: Prisma.FieldRef<"VarianteProducto", 'Int'>
   readonly nombre: Prisma.FieldRef<"VarianteProducto", 'String'>
-  readonly medida: Prisma.FieldRef<"VarianteProducto", 'String'>
+  readonly descripcion: Prisma.FieldRef<"VarianteProducto", 'String'>
   readonly precioBase: Prisma.FieldRef<"VarianteProducto", 'Int'>
   readonly bajoPedido: Prisma.FieldRef<"VarianteProducto", 'Boolean'>
   readonly activo: Prisma.FieldRef<"VarianteProducto", 'Boolean'>

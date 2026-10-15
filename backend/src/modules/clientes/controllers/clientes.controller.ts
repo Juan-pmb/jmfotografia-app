@@ -1,10 +1,25 @@
-import type { Request, Response } from "express";
+/*import type { Request, Response } from "express";
 import { prisma } from "../../../lib/prisma.js";
 import { formatearTexto } from "../../../utils/formato.js"
+import { ClientesService } from "../services/clientes.service.js"; */
+
+
+import type { Request, Response } from "express";
+import { Prisma } from "../../../generated/prisma/client.js";
 import { ClientesService } from "../services/clientes.service.js";
 
 
+
 const service = new ClientesService();
+
+
+function esErrorDuplicado(error: unknown): boolean {
+  return (
+    error instanceof Prisma.PrismaClientKnownRequestError &&
+    error.code === "P2002"
+  );
+}
+
 
 // ======================================================
 // GET
@@ -56,7 +71,7 @@ export async function obtenerCliente(
 
       if (
         error.message ===
-        "El identificador del cliente no es válido"
+        "El identificador del cliente no es válido."
       ) {
         res.status(400).json({
           mensaje: error.message,
@@ -66,7 +81,7 @@ export async function obtenerCliente(
 
       if (
         error.message ===
-        "Cliente no encontrado"
+        "Cliente no encontrado."
       ) {
         res.status(404).json({
           mensaje: error.message,
@@ -112,6 +127,15 @@ export async function crearCliente(
       });
       return;
     }
+
+    
+    if (esErrorDuplicado(error)) {
+      res.status(409).json({
+        mensaje: "Ya existe un cliente con ese teléfono o documento.",
+      });
+      return;
+    }
+
 
     res.status(500).json({
       mensaje: "No fue posible registrar el cliente",
@@ -171,11 +195,66 @@ export async function actualizarCliente(
 
       }
 
+      
+      if (esErrorDuplicado(error)) {
+        res.status(409).json({
+          mensaje: "Ya existe un cliente con ese teléfono o documento.",
+        });
+        return;
+      }
+
+
     }
 
     res.status(500).json({
       mensaje: "No fue posible actualizar el cliente",
     });
 
+  }
+}
+
+// ======================================================
+// Cambiar estado del cliente
+// ======================================================
+
+export async function cambiarEstadoCliente(
+  req: Request,
+  res: Response,
+) {
+  try {
+    const id = Number(req.params.id);
+    const { activo } = req.body;
+
+    if (typeof activo !== "boolean") {
+      res.status(400).json({
+        mensaje: "El estado activo debe ser verdadero o falso.",
+      });
+      return;
+    }
+
+    const cliente = await service.cambiarEstadoCliente(id, activo);
+
+    res.json(cliente);
+  } catch (error) {
+    if (error instanceof Error) {
+      if (
+        error.message ===
+        "El identificador del cliente no es válido."
+      ) {
+        res.status(400).json({ mensaje: error.message });
+        return;
+      }
+
+      if (error.message === "Cliente no encontrado.") {
+        res.status(404).json({ mensaje: error.message });
+        return;
+      }
+    }
+
+    console.error("Error cambiando estado del cliente:", error);
+
+    res.status(500).json({
+      mensaje: "No fue posible cambiar el estado del cliente.",
+    });
   }
 }
